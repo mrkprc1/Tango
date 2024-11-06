@@ -4,13 +4,13 @@ A Mixed Integer Linear Programme (MILP) solver for the Tango game on LinkedIn.
 
 Mapping the Moon and Sun symbols to the binary values 0 and 1 respectively, we can "unravel" the $n \times n$ game grid in a vector of length $n^2$ by taking each row and appending them end on end resulting in the vector ${\bf x} \in \{0, 1\}^{\otimes n^2}$.
 
-The constraint that dictates that there must be equal number of each symbol in the first row can be expressed as:
+The constraint that dictates that there must be equal number of each symbols in the first row can be expressed as:
 
 ```math
 [\underbrace{{\bf 1}_n^{T}, {\bf 0}_n^{T}, \dots , {\bf 0}_n^{T}}_{\times n }] {\bf x} = \frac{n}{2}
 ```
 
-where ${\bf 1}_n = [1,1,\dots,1]$ and ${\bf 0}_n = [0,0,\dots,0]$. Similarly, the constaint for the $i^{\rm th}$ is the same as above with the vector ${\bf 1}_n^{T}$ shifted to position $i$. Succinctly, we can write all of the row constraints as 
+where ${\bf 1}_n = [\overbrace{1,1,\dots,1}^n]$ and ${\bf 0}_n = [\overbrace{0,0,\dots,0}^n]$. Similarly, the constaint for the $i^{\rm th}$ is the same as above with the vector ${\bf 1}_n^{T}$ shifted to position $i$. Succinctly, we can write all of the row constraints as 
 
 ```math
 \left( {\mathbb I}_n \otimes {\bf 1}_n^{T} \right){\bf x} = \frac{n}{2} {\bf 1}_n
@@ -25,7 +25,7 @@ It is then straightforward to see that all the column constraints can be express
 Next, we deal with the constraints on "triples" – i.e. the symbols cannot appear in continuous lines greater than 2 characters. To encode this constraint, we define the vectors
 
 ```math
-{\bf t}_1 = [1,1,1,0,\dots,0,0,0,0] \\
+{\bf t}_1 = [1,1,1,\overbrace{0,\dots,0,0,0,0}^{n-3}] \\
 {\bf t}_2 = [0,1,1,1,\dots,0,0,0,0] \\
 \vdots \\
 {\bf t}_{2n-3} = [0,0,0,0,\dots,1,1,1,0] \\
